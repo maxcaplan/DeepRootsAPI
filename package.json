@@ -1,0 +1,34 @@
+{
+  "name": "deeprootsapi",
+  "version": "0.0.1",
+  "description": "An API layer for the Deep Roots Ninox DB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js -p 8080",
+    "start": "node app.s -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxcaplan/DeepRootsAPI.git"
+  },
+  "keywords": [
+    "ninox",
+    "api",
+    "node"
+  ],
+  "author": "Max Caplan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxcaplan/DeepRootsAPI/issues"
+  },
+  "homepage": "https://github.com/maxcaplan/DeepRootsAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "node": "^15.12.0",
+    "nodemon": "^2.0.7"
+  }
+}
