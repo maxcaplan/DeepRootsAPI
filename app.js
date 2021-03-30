@@ -3,7 +3,8 @@ var argv = require("minimist")(process.argv.slice(2));
 const express = require("express");
 
 const app = express();
-const port = argv.Port || argv.port || argv.P || argv.p || 3000;
+const port =
+  process.env.PORT || argv.Port || argv.port || argv.P || argv.p || 3000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
