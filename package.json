@@ -4,7 +4,6 @@
   "description": "An API layer for the Deep Roots Ninox DB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js -p 8080",
     "start": "node app.s -p 8080"
   },
