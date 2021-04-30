@@ -15,6 +15,10 @@ const port =
 const express = require("express");
 const app = express();
 
+// Init Graphql
+var { graphqlHTTP } = require('express-graphql');
+var { buildSchema } = require('graphql');
+
 // Init node libraries
 var cors = require("cors");
 const axios = require("axios").default;
@@ -24,46 +28,25 @@ app.use(cors());
 axios.defaults.headers.common["Authorization"] = `Bearer ${API_KEY}`;
 app.use(bodyParser.json());
 
-//
-// Routes:
-//
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.get("/api/getTables/", async (req, res) => {
-  try {
-    const tables = await axios.get(
-      `${BASE_URL}/${TEAM_ID}/databases/${DB_ID}/tables`
-    );
-    res.json(tables.data);
-  } catch (e) {
-    res.status(500).send(e.message);
+// Construct a schema, using GraphQL schema language
+var schema = buildSchema(`
+  type Query {
+    hello: String
   }
-});
+`);
+ 
+// The root provides a resolver function for each API endpoint
+var root = {
+  hello: () => {
+    return 'Hello world!';
+  },
+};
 
-app.get("/api/getRecords/", async (req, res) => {
-  try {
-    const records = await axios.get(
-      `${BASE_URL}/${TEAM_ID}/databases/${DB_ID}/tables/HF/records`
-    );
-    res.json(records.data);
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-});
-
-app.get("/api/getRecord/", async (req, res) => {
-  try {
-    const record = await axios.get(
-      `${BASE_URL}/${TEAM_ID}/databases/${DB_ID}/tables/O/records/8`
-    );
-    res.json(record.data);
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-});
-
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: root,
+  graphiql: true,
+}));
 
 // Start server
 app.listen(port, () => {
